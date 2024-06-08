@@ -19,7 +19,7 @@ resource "aws_iam_role" "lambda_role" {
 resource "aws_lambda_function" "terraform_lambda_func" {
   count = var.enable_lambda ? 1 : 0
   filename      = "${path.module}/python/hello.zip"
-  function_name = "My Python Lambda Function"
+  function_name = "My-Python-Lambda-Function"
   role          = aws_iam_role.lambda_role[0].arn
   handler       = "hello.lambda_handler"
   runtime       = "python3.8"

@@ -28,6 +28,11 @@ variable "Allow_Lambda" {
   type        = bool
 }
 
+variable "Allow_Cloudfront" {
+  description = "For allowing creating Cloudfront distribution"
+  type        = bool
+}
+
 variable "Allow_Using_VPC_In_ASG" {
   description = "For allowing using VPC module in ASG"
   type        = bool
@@ -41,6 +46,11 @@ variable "Allow_Using_VPC_In_LB" {
 
 variable "Allow_Using_VPC_In_Lambda" {
   description = "For allowing using VPC module in Lambda"
+  type        = bool
+}
+
+variable "Allow_Using_S3_In_Cloudfront" {
+  description = "For allowing using S3 module in Cloudfront"
   type        = bool
 }
 
