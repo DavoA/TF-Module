@@ -54,6 +54,18 @@ variable "Allow_Using_S3_In_Cloudfront" {
   type        = bool
 }
 
+variable "Another_S3" {
+  description = "Another S3 bucket id"
+  type = string
+  default = ""
+}
+
+variable "Another_S3_Domain_name" {
+  description = "Another S3 bucket domain name"
+  type = string
+  default = ""
+}
+
 ### DEFAULT RESOURCE IDS ###
 variable "Default_VPC" {
   description = "The default VPC id"
@@ -72,3 +84,4 @@ variable "Default_SG" {
   type        = list(string)
   default     = ["sg-02b4202917efd7378"]
 }
+

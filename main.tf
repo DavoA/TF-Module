@@ -34,6 +34,7 @@ module "lambda_module" {
 module "cloudFront_module" {
   source            = "./modules/cloudfront"
   enable_cloudfront = var.Allow_Cloudfront
-  domain            = var.Allow_S3 && var.Allow_Using_S3_In_Cloudfront ? "http://${module.s3_module.bucket_name}.s3.amazonaws.com" : null
-  origin            = var.Allow_S3 && var.Allow_Using_S3_In_Cloudfront ? module.s3_module.bucket_id : null
+  domain            = var.Allow_S3 && var.Allow_Using_S3_In_Cloudfront ? module.s3_module.bucket_domain_name : var.Another_S3_Domain_name
+  origin            = var.Allow_S3 && var.Allow_Using_S3_In_Cloudfront ? module.s3_module.bucket_id : var.Another_S3
+  target_origin     = var.Allow_S3 && var.Allow_Using_S3_In_Cloudfront ? module.s3_module.bucket_id : var.Another_S3
 }
