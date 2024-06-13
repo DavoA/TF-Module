@@ -1,6 +1,6 @@
 resource "aws_s3_bucket" "my_bucket" {
   count  = var.enable_s3 ? 1 : 0
-  bucket = "My S3 Bucket"
+  bucket = "my-s3-bucket"
 }
 
 resource "aws_s3_bucket_policy" "my_bucket_policy" {

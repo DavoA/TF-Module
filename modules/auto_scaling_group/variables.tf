@@ -16,7 +16,7 @@ variable "my_sgs" {
 variable "ami_id" {
   description = "Default ami id"
   type        = string
-  default     = "ami-00beae93a2d981137"
+  default     = "ami-033fabdd332044f06"
 }
 
 variable "instance_type" {

@@ -9,6 +9,14 @@ module "s3_module" {
   enable_website_configuration = var.Allow_S3_Website
 }
 
+module "ec2_module" {
+  source             = "./modules/ec2"
+  enable_ec2         = var.Allow_EC2
+  public_subnet_id   = var.Allow_VPC && var.Allow_Using_VPC_In_EC2 ? module.vpc_module.public_subnet_id : var.Default_Subnets[0]
+  private_subnet_id  = var.Allow_VPC && var.Allow_Using_VPC_In_EC2 ? module.vpc_module.private_subnet_id : var.Default_Subnets[1]
+  security_group_ids = var.Allow_VPC && var.Allow_Using_VPC_In_EC2 ? [module.vpc_module.security_group_id] : var.Default_SG
+}
+
 module "asg_module" {
   source     = "./modules/auto_scaling_group"
   enable_asg = var.Allow_ASG
@@ -17,17 +25,17 @@ module "asg_module" {
 }
 
 module "lb_module" {
-  source     = "./modules/load_balancer"
-  enable_lb  = var.Allow_LB
-  my_subnets = var.Allow_VPC && var.Allow_Using_VPC_In_LB ? [module.vpc_module.public_subnet_id, module.vpc_module.private_subnet_id] : var.Default_Subnets
-  my_sgs     = var.Allow_VPC && var.Allow_Using_VPC_In_LB ? [module.vpc_module.security_group_id] : var.Default_SG
-  my_vpc     = var.Allow_VPC && var.Allow_Using_VPC_In_LB ? module.vpc_module.vpc_id : var.Default_VPC
+  source    = "./modules/load_balancer"
+  enable_lb = var.Allow_LB
+  my_subnet = var.Allow_VPC && var.Allow_Using_VPC_In_LB ? [module.vpc_module.public_subnet_id] : [var.Default_Subnets[0]]
+  my_sgs    = var.Allow_VPC && var.Allow_Using_VPC_In_LB ? [module.vpc_module.security_group_id] : var.Default_SG
+  my_vpc    = var.Allow_VPC && var.Allow_Using_VPC_In_LB ? module.vpc_module.vpc_id : var.Default_VPC
 }
 
 module "lambda_module" {
   source        = "./modules/lambda"
   enable_lambda = var.Allow_Lambda
-  vpc_subnets   = var.Allow_VPC && var.Allow_Using_VPC_In_Lambda ? [module.vpc_module.public_subnet_id, module.vpc_module.private_subnet_id] : var.Default_Subnets
+  vpc_subnets   = var.Allow_VPC && var.Allow_Using_VPC_In_Lambda ? [module.vpc_module.public_subnet_id] : [var.Default_Subnets[0]]
   vpc_sgs       = var.Allow_VPC && var.Allow_Using_VPC_In_Lambda ? [module.vpc_module.security_group_id] : var.Default_SG
 }
 

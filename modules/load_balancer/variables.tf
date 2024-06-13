@@ -3,7 +3,7 @@ variable "enable_lb" {
   type        = bool
 }
 
-variable "my_subnets" {
+variable "my_subnet" {
   description = "For adding desired subnet ids"
   type        = list(string)
 }

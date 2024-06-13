@@ -1,7 +1,7 @@
 resource "aws_iam_instance_profile" "instance_profile" {
   count = var.enable_asg ? 1 : 0
   name  = "instance-profile"
-  role = aws_iam_role.autoscale_role[0].name
+  role  = aws_iam_role.autoscale_role[0].name
 }
 
 resource "aws_iam_role" "autoscale_role" {
@@ -31,12 +31,12 @@ resource "aws_autoscaling_group" "autoscaling" {
   health_check_type         = "EC2"
   health_check_grace_period = 300
   force_delete              = true
-  launch_configuration      = aws_launch_configuration.lc[0].name
+  launch_configuration      = aws_launch_configuration.my_lc[0].name
 }
 
-resource "aws_launch_configuration" "lc" {
+resource "aws_launch_configuration" "my_lc" {
   count                = var.enable_asg ? 1 : 0
-  name_prefix          = "example-lc"
+  name                 = "my-lc"
   image_id             = var.ami_id
   instance_type        = var.instance_type
   security_groups      = var.my_sgs

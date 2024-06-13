@@ -2,8 +2,7 @@ resource "aws_lb" "my_load_balancer" {
   count = var.enable_lb ? 1 : 0
   name               = "my-load-balancer"
   load_balancer_type = "application"
-
-  subnets         = var.my_subnets
+  subnets         = var.my_subnet
   security_groups = var.my_sgs
 }
 

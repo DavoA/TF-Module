@@ -3,6 +3,11 @@ variable "Allow_VPC" {
   type        = bool
 }
 
+variable "Allow_EC2" {
+  description = "For allowing creating EC2"
+  type        = bool
+}
+
 variable "Allow_S3" {
   description = "For allowing creating S3"
   type        = bool
@@ -38,6 +43,10 @@ variable "Allow_Using_VPC_In_ASG" {
   type        = bool
 }
 
+variable "Allow_Using_VPC_In_EC2" {
+  description = "For allowing using VPC module in ASG"
+  type        = bool
+}
 
 variable "Allow_Using_VPC_In_LB" {
   description = "For allowing using VPC module in LB"
