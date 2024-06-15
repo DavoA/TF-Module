@@ -7,38 +7,38 @@ resource "aws_cloudfront_distribution" "my_distribution" {
       origin_access_identity = aws_iam_role.cloudfront_s3_access_role[0].arn
     }
   }
-  enabled         = true
-  is_ipv6_enabled = true
-  comment         = "My CloudFront Distribution"
+  enabled         = var.cloudfront_user_accept_enabled
+  is_ipv6_enabled = var.cloudfront_ipv6_enabled
+  comment         = var.cloudfront_comment
   default_cache_behavior {
     target_origin_id       = var.target_origin
-    viewer_protocol_policy = "allow-all"
-    allowed_methods        = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]
-    cached_methods         = ["GET", "HEAD"]
+    viewer_protocol_policy = var.cloudfront_viewer_protocol_policy
+    allowed_methods        = var.cloudfront_allowed_methods
+    cached_methods         = var.cloudfront_cached_methods
     forwarded_values {
-      query_string = false
+      query_string = var.cloudfront_query_string
       cookies {
-        forward = "none"
+        forward = var.cloudfront_cookies_forward
       }
     }
-    min_ttl     = 0
-    default_ttl = 3600
-    max_ttl     = 86400
+    min_ttl     = var.cloudfront_min_ttl
+    default_ttl = var.cloudfront_default_ttl
+    max_ttl     = var.cloudfront_max_ttl
   }
   restrictions {
     geo_restriction {
-      restriction_type = "none"
+      restriction_type = var.cloudfront_restriction_type
     }
   }
   viewer_certificate {
-    cloudfront_default_certificate = true
+    cloudfront_default_certificate = var.cloudfronts_default_certificate
   }
 }
 
 
 resource "aws_iam_role" "cloudfront_s3_access_role" {
   count = var.enable_cloudfront ? 1 : 0
-  name = "CloudFront_S3_Access_Role"
+  name  = var.cloudfront_role_name
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
     Statement = [{
@@ -53,7 +53,7 @@ resource "aws_iam_role" "cloudfront_s3_access_role" {
 
 resource "aws_iam_policy" "s3_access_policy" {
   count = var.enable_cloudfront ? 1 : 0
-  name = "S3_Access_Policy"
+  name  = var.cloudfront_policy_name
   policy = jsonencode({
     Version = "2012-10-17",
     Statement = [{
@@ -70,8 +70,8 @@ resource "aws_iam_policy" "s3_access_policy" {
 }
 
 resource "aws_iam_policy_attachment" "attach_s3_access_policy" {
-  count = var.enable_cloudfront ? 1 : 0
-  name       = "s3_policy_attachment"
+  count      = var.enable_cloudfront ? 1 : 0
+  name       = var.cloudfront_policy_attachment_name
   roles      = [aws_iam_role.cloudfront_s3_access_role[0].name]
   policy_arn = aws_iam_policy.s3_access_policy[0].arn
 }
