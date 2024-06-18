@@ -73,12 +73,15 @@ variable "Allow_Using_S3_In_Cloudfront" {
   type        = bool
 }
 
+
+
+### ASG ###
 variable "ASG_instance_profile_name" {
   description = "instance profile name"
   type = string
+  default = "ASG intance profile name"
 }
 
-### ASG ###
 variable "ASG_role_name" {
   description = "ASG role name"
   type = string
