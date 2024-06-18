@@ -11,7 +11,7 @@ resource "aws_s3_bucket" "my_bucket" {
 
 resource "aws_s3_bucket_object" "s3_object" {
   count  = var.enable_s3 && var.enable_s3_object && var.enable_website_configuration == false ? 1 : 0
-  bucket = aws_s3_bucket.my_bucket.bucket
+  bucket = aws_s3_bucket.my_bucket[0].bucket
   key    = var.s3_bucket_object_key
   source = var.s3_file_path
 }

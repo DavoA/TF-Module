@@ -27,7 +27,7 @@ resource "aws_lb_listener" "my_listener" {
 
 resource "aws_lb_target_group_attachment" "ec2_attachment" {
   count            = var.enable_lb && var.enable_ec2_attachment ? 1 : 0
-  target_group_arn = aws_lb_target_group.target_group.arn
+  target_group_arn = aws_lb_target_group.target_group[0].arn
   target_id        = var.enable_ec2_attachment ? var.ec2_instance_id : null
   port             = var.attachment_port
 }
