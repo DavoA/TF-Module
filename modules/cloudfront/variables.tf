@@ -39,7 +39,7 @@ variable "cloudfront_comment" {
 variable "cloudfront_viewer_protocol_policy" {
   description = "cloudfront viewer protocol policy"
   type        = string
-  default     = "allow_all"
+  default     = "allow-all"
 }
 
 variable "cloudfront_allowed_methods" {
@@ -94,7 +94,7 @@ variable "cloudfront_restriction_type" {
 variable "cloudfronts_default_certificate" {
   description = "cloudfront default certificate"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "cloudfront_role_name" {

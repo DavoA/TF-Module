@@ -45,7 +45,7 @@ module "lb_module" {
   enable_lb             = var.Allow_LB
   enable_ec2_attachment = var.Allow_EC2_Attachment
   ec2_instance_id       = var.EC2_instance_id
-  my_subnet             = var.Allow_VPC && var.Allow_Using_VPC_In_LB ? [module.vpc_module.public_subnet_id] : [var.Default_Subnets[0]]
+  my_subnet             = var.Allow_VPC && var.Allow_Using_VPC_In_LB ? [module.vpc_module.public_subnet_id,module.vpc_module.private_subnet_id] : [var.Default_Subnets[1],var.Default_Subnets[2]]
   my_sgs                = var.Allow_VPC && var.Allow_Using_VPC_In_LB ? [module.vpc_module.security_group_id] : var.Default_SG
   my_vpc                = var.Allow_VPC && var.Allow_Using_VPC_In_LB ? module.vpc_module.vpc_id : var.Default_VPC
 }

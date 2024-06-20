@@ -4,6 +4,12 @@ variable "cidr_block" {
   default     = "10.0.0.0/16"
 }
 
+variable "availability_zones" {
+  description = "availability zones"
+  type = list(string)
+  default = ["us-east-2a", "us-east-2b"]
+}
+
 variable "public_cidr_block" {
   description = "VPC public subnet cidr block"
   type        = string

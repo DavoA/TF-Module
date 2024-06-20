@@ -6,7 +6,7 @@ variable "enable_asg" {
 variable "instance_profile_name" {
   description = "instance profile name"
   type        = string
-  default     = "instance profile"
+  default     = "instance_profile"
 }
 
 variable "asg_role_name" {
@@ -40,9 +40,9 @@ variable "asg_max_size" {
 }
 
 variable "asg_health_check_type" {
-  description = "asg healthcheck type: ES2 or ELB"
+  description = "asg healthcheck type: EC2 or ELB"
   type        = string
-  default     = "ES2"
+  default     = "EC2"
 }
 
 variable "asg_health_check_grace_period" {

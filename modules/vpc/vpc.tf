@@ -8,15 +8,17 @@ resource "aws_subnet" "public_subnet" {
   count      = var.enable_vpc ? 1 : 0
   vpc_id     = aws_vpc.my_vpc[0].id
   cidr_block = var.public_cidr_block
+  availability_zone = var.availability_zones[0]
   tags = {
     type = "public"
   }
 }
 
 resource "aws_subnet" "private_subnet" {
-  count                   = var.enable_vpc ? 1 : 0
-  vpc_id                  = aws_vpc.my_vpc[0].id
-  cidr_block              = var.private_cidr_block
+  count      = var.enable_vpc ? 1 : 0
+  vpc_id     = aws_vpc.my_vpc[0].id
+  cidr_block = var.private_cidr_block
+  availability_zone = var.availability_zones[1]
   map_public_ip_on_launch = true
   tags = {
     type = "private"

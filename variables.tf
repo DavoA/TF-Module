@@ -288,7 +288,7 @@ variable "Default_VPC" {
 variable "Default_Subnets" {
   description = "The default VPC Subnets ids"
   type        = list(string)
-  default     = ["subnet-022afa3d806e26dfa", "subnet-0272fa913730c1000", "	subnet-0dafd16068608ae98"]
+  default     = ["subnet-022afa3d806e26dfa", "subnet-0272fa913730c1000", "subnet-0dafd16068608ae98"]
 }
 
 variable "Default_SG" {
