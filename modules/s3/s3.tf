@@ -16,24 +16,6 @@ resource "aws_s3_bucket_object" "s3_object" {
   source = var.s3_file_path
 }
 
-resource "aws_s3_bucket_policy" "my_bucket_policy" {
-  count  = var.enable_s3 ? 1 : 0
-  bucket = aws_s3_bucket.my_bucket[0].bucket
-  policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Effect = "Allow",
-        Principal = {
-          Service = "s3.amazonaws.com"
-        },
-        Action   = "s3:PutObject",
-        Resource = "${aws_s3_bucket.my_bucket[0].arn}/*"
-      }
-    ]
-  })
-}
-
 resource "aws_iam_role" "s3_put_object_role" {
   count = var.enable_s3 ? 1 : 0
   name  = var.s3_role_name
@@ -59,7 +41,7 @@ resource "aws_iam_policy" "s3_put_object_policy" {
     Statement = [
       {
         Effect   = "Allow",
-        Action   = "s3:PutObject",
+        Action   = ["s3:PutObject","s3:GetObject"]
         Resource = "${aws_s3_bucket.my_bucket[0].arn}/*"
       }
     ]
